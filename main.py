@@ -22,7 +22,7 @@ class AudioClassifier:
 
     def find_voice_gender(self, rec_path):
         self.rec_path = rec_path
-        model = load_model("model.keras")
+        model = load_model('/Users/arunkaul/Desktop/AudioSignal/AudioGenderRecognition/model.keras')#Add Model.keras Path
         model.compile(
             loss="sparse_categorical_crossentropy",
             metrics=["accuracy"],
