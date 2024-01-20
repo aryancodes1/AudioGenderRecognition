@@ -5,9 +5,10 @@ from tensorflow.keras.layers import Dense, Dropout, Activation, Flatten, Conv1D
 from tensorflow.keras.optimizers import Adam
 import librosa
 import numpy as np
+import eyed3
 
 ad = AudioLoad()
-X_data, Y_data, X_label, Y_label = ad.load_audio_data(csv_path="cv-other-test .csv")
+X_data, Y_data, X_label, Y_label = ad.load_audio_data(csv_path='/Users/arunkaul/Desktop/AudioSignal/AudioGenderRecognition/cv-other-test .csv')
 
 
 print(X_data.shape)
@@ -30,12 +31,12 @@ model.fit(X_data, X_label, validation_data=(Y_data, Y_label), epochs=75)
 
 
 def features_extractor(file):
+    duration_s = eyed3.load(file).info.time_secs
     audio, sample_rate = librosa.load(
-        file, res_type="kaiser_fast", sr=48000, mono=True, duration=1.7
+        file, res_type="kaiser_fast", sr=48000, mono=True, duration=duration_s - 0.5
     )
     mfccs_features = librosa.feature.mfcc(y=audio, sr=sample_rate, n_mfcc=40)
     mfccs_scaled_features = np.mean(mfccs_features.T, axis=0)
     return mfccs_scaled_features
 
-
-model.save("model.keras")
+model.save("model1.keras")

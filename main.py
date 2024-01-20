@@ -5,11 +5,12 @@ from playsound import playsound
 import sounddevice as sd
 from scipy.io.wavfile import write
 import wavio as wv
-
+import eyed3
 
 def features_extractor(file):
+    duration_s = eyed3.load(file).info.time_secs
     audio, sample_rate = librosa.load(
-        file, res_type="kaiser_fast", sr=48000, mono=True, duration=1.7
+        file, res_type="kaiser_fast", sr=48000, mono=True, duration=duration_s - 0.5
     )
     mfccs_features = librosa.feature.mfcc(y=audio, sr=sample_rate, n_mfcc=40)
     mfccs_scaled_features = np.mean(mfccs_features.T, axis=0)
