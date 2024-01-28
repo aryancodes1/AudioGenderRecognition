@@ -6,8 +6,7 @@
 - use find_voice_gender to predict gendre of audio
 
 ## Installation
-- pip install tensorflow
-- pip install keras==2.13.0
+- pip install tensorflow==2.13.0
 - pip install scipy
 - pip install resample
 - pip install playsound
